@@ -64,3 +64,6 @@ $RECYCLE.BIN/
 *.lnk
 *.csproj
 *.sln
+*.suo
+*.htm
+U/UnityVS.U.v12.suo
