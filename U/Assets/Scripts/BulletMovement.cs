@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
 public class BulletMovement : MonoBehaviour {
 
     [SerializeField]
@@ -17,6 +19,7 @@ public class BulletMovement : MonoBehaviour {
         //_bulletSpeed = 0.1f;
         //_bulletLifeTime = 3f;
         _deathTime = Time.time + _bulletLifeTime;
+
 
 	}
 	

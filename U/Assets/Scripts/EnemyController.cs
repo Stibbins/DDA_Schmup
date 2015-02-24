@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Holoville.HOTween;
+using Holoville.HOTween.Plugins;
 
 public class EnemyController : MonoBehaviour {
 
     [SerializeField]
     private float health;
+  
+
+    private Transform _playerTransform;
 
     //TODO: Movement patterns
     //TODO: Attack patterns
@@ -12,7 +17,8 @@ public class EnemyController : MonoBehaviour {
 
 	void Start ()  
     {
-	
+        _playerTransform = GameObject.Find("Player").transform;
+        HOTween.To(transform, 3, "position", _playerTransform.position);
 	}
 	
 
