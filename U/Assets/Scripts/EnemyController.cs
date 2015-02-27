@@ -20,12 +20,13 @@ public class EnemyController : MonoBehaviour {
 
 	void Start ()  
     {
-
+        /*
         _hoPath = GameObject.Find("PathStorage").GetComponent<HOPath>();
         HOTween.To(transform, tweenDuration, new TweenParms()
                             .Prop("position", _hoPath.MakePlugVector3Path().Is2D())
                             .Ease(EaseType.Linear)
-                            );
+                            );\
+         */
 	}
 	
 
