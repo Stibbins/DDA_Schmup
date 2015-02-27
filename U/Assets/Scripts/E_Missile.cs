@@ -5,8 +5,8 @@ public class E_Missile : MonoBehaviour {
 
     [SerializeField]
     private Object missilePrefab;
-    
-    // private BalanceSystem _balanceSystem;
+    [SerializeField]
+    private BalanceSystem _balanceSystem;
     
     [SerializeField]
     private float _arcSize;
