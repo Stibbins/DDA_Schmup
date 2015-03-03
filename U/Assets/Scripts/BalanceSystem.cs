@@ -15,7 +15,7 @@ public class BalanceSystem : MonoBehaviour {
 
 
     //------Structs holding values for different enemy types
-    private struct S_MissileValues
+    public struct S_MissileValues
     {
         public float _missileRate;
         public float _missileArc;
@@ -28,7 +28,7 @@ public class BalanceSystem : MonoBehaviour {
 
     //---- End of structs
 
-    private S_MissileValues _missileValues;
+    public S_MissileValues _missileValues;
 
 
 	void Start () 
