@@ -7,13 +7,8 @@ public class BalanceSystem : MonoBehaviour {
     private Movement _playerMovement;
 
     ///-----STARTING VALUES!
-    [SerializeField]
-    private float sv_MissileRate;
-    [SerializeField]
-    private float sv_MissileArc;
-
-    //-------END OF STARTING VALUES!
-
+    public float sv_MissileRate;
+    public float sv_MissileArc;
 
 
     //------Structs holding values for different enemy types
@@ -33,8 +28,7 @@ public class BalanceSystem : MonoBehaviour {
     public S_MissileValues _missileValues;
 
     //---- FUZZY IMPLEMENTATION
-
-
+    
     public float _enemySpawnerMod;
 
 

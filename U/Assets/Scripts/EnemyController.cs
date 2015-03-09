@@ -8,21 +8,18 @@ public class EnemyController : MonoBehaviour {
 
     [SerializeField]
     private float health;
-    [SerializeField]
-
-
     public bool _alive { get; private set; }
 
-    
+    private static WaveController _waveController;
 
-    //TODO: Movement patterns
-    //TODO: Attack patterns
-    //TODO: List tracking thing
 
-	void Awake ()  
+    void Awake ()  
     {
+        if (_waveController == null)
+        {
+            _waveController = GameObject.Find("GameLogic").GetComponent<WaveController>();
+        }
         _alive = true;
-
 	}
 	
 
@@ -37,13 +34,16 @@ public class EnemyController : MonoBehaviour {
             if (health <= 0)
             {
                 _alive = false;
-                //_waveController.UntrackEnemy(transform.gameObject);
-                //Destroy(gameObject);
+                _waveController.UnTrackEnemy(this);
+                Destroy(gameObject);
             }
         }
     }
 
-
+    public void SetValues()
+    {
+        //TODO
+    }
 
 }
 

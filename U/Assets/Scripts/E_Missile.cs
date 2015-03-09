@@ -13,11 +13,14 @@ public class E_Missile : MonoBehaviour {
     [SerializeField]
     private float _fireRate;
     private float _lastShot;
-    private Transform _playerTransform;
+    private static Transform _playerTransform;
 	
 	void Awake () 
     {
-        _playerTransform = GameObject.Find("Player").transform;
+        if (_playerTransform == null)
+        {
+            _playerTransform = GameObject.Find("Player").transform;
+        }
         _lastShot = Time.time;
 	}
 	
@@ -31,4 +34,9 @@ public class E_Missile : MonoBehaviour {
             Debug.Log("Shot fired");
         }
 	}
+
+    public E_Missile Identify()
+    {
+        return this;
+    }
 }

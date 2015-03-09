@@ -16,6 +16,7 @@ public class WaveController : MonoBehaviour {
     public int spawnCount;
     public float spawnDelay;
 
+    private bool _spawnActive;
     private float _spawnTimer;
     public Transform waveSpawn;
     private Transform[] _transformArray;
@@ -26,47 +27,56 @@ public class WaveController : MonoBehaviour {
     //---- WAVE MANAGEMENT
     private List<EnemyController> _enemyList = new List<EnemyController>();
     public bool _waveActive {get; private set;}
+    private int _currentWave;
     //---- END WAVE MANAGEMENT
 
     void Awake ()
     {
-        _waveActive = true;
+        _waveActive = false;
+        _spawnActive = true;
         _spawnTimer = Time.time + spawnDelay;
         Random.seed = (int)Time.time;
         _transformArray = waveSpawn.GetComponentsInChildren<Transform>();
+        _currentWave = 0;
     }
 
     void Update()
     {
-        Debug.Log("Time: " + Time.time);
-        Debug.Log("SpawnTimer: " + _spawnTimer);
         if (_waveActive)
         {
-            if (Time.time > _spawnTimer)
+            
+            if (_spawnActive)
             {
                 
                 for (int i = 0; i < spawnCount; i++)
                 {
                     EnemyController eC = (EnemyController) Instantiate(enemyPrefab, _transformArray[i].position, Quaternion.identity);
                     TrackEnemy(eC);
+                    //eC.SetValues(); //Function not implemented yet
                 }
-                _spawnTimer = Time.time + spawnDelay;
+
+                
+                
+                // -------- Wave has spawned
+                _currentWave++;
+                _spawnActive = false;
+                
             }
 
-            for (int i = 0; i < _enemyList.Count; i++)
-            {
-                if (!_enemyList[i]._alive)
-                {
-                    _enemyList.RemoveAt(i);
-                    Destroy(_enemyList[i].gameObject);
-                }
-            }
-            if (_enemyList.Count < 1)
+            if (_enemyList.Count < 1 && _currentWave > 0)
             {
                 _waveActive = false;
+                _spawnTimer = Time.time + spawnDelay; //Delay until next wave
             }
 
             
+        }
+
+        //----------WAVE IS NOT ACTIVE
+        if (!_waveActive && Time.time > _spawnTimer)
+        {
+            _waveActive = true;
+            _spawnActive = true;
         }
        
     }
@@ -75,6 +85,11 @@ public class WaveController : MonoBehaviour {
     public void TrackEnemy(EnemyController enemy)
     {
         _enemyList.Add(enemy);
+    }
+
+    public void UnTrackEnemy (EnemyController enemy)
+    {
+        _enemyList.Remove(enemy);
     }
 
     public bool IsWaveActive()
