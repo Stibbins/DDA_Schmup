@@ -4,6 +4,8 @@ using System.Collections;
 public class BalanceSystem : MonoBehaviour {
 
 
+    private Movement _playerMovement;
+
     ///-----STARTING VALUES!
     [SerializeField]
     private float sv_MissileRate;
@@ -30,10 +32,16 @@ public class BalanceSystem : MonoBehaviour {
 
     public S_MissileValues _missileValues;
 
+    //---- FUZZY IMPLEMENTATION
+
+
+    public float _enemySpawnerMod;
+
 
 	void Start () 
     {
-      S_MissileValues _missileValues = new S_MissileValues(sv_MissileRate, sv_MissileArc);
+        S_MissileValues _missileValues = new S_MissileValues(sv_MissileRate, sv_MissileArc);
+        _playerMovement = GameObject.Find("Player").GetComponent<Movement>();
 	}
 	
 	
@@ -47,4 +55,14 @@ public class BalanceSystem : MonoBehaviour {
     {
         return  _missileValues;
     }
+
+    public void ModifyEnemySpawnAmount()
+    {
+        float _playerDelta = _playerMovement._waveDelta;
+        float _playerTime = Time.time - _playerMovement._waveTimeStart;
+    }
+
+
+
+
 }

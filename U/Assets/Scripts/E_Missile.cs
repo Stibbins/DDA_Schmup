@@ -15,7 +15,7 @@ public class E_Missile : MonoBehaviour {
     private float _lastShot;
     private Transform _playerTransform;
 	
-	void Start () 
+	void Awake () 
     {
         _playerTransform = GameObject.Find("Player").transform;
         _lastShot = Time.time;

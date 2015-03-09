@@ -9,36 +9,23 @@ public class EnemyController : MonoBehaviour {
     [SerializeField]
     private float health;
     [SerializeField]
-    private float tweenDuration;
-    private HOPath _hoPath;
 
 
+    public bool _alive { get; private set; }
+
+    
 
     //TODO: Movement patterns
     //TODO: Attack patterns
     //TODO: List tracking thing
 
-	void Start ()  
+	void Awake ()  
     {
-        /*
-        _hoPath = GameObject.Find("PathStorage").GetComponent<HOPath>();
-        HOTween.To(transform, tweenDuration, new TweenParms()
-                            .Prop("position", _hoPath.MakePlugVector3Path().Is2D())
-                            .Ease(EaseType.Linear)
-                            );\
-         */
+        _alive = true;
+
 	}
 	
 
-	void Update () {
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            //TODO: Remove from list
-        }
-	
-	}
     
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -47,9 +34,14 @@ public class EnemyController : MonoBehaviour {
             PlayerDamage playerShot = other.GetComponent<PlayerDamage>();
             health -= playerShot.damageAmount;
             playerShot.DestroyInstance();
+            if (health <= 0)
+            {
+                _alive = false;
+                //_waveController.UntrackEnemy(transform.gameObject);
+                //Destroy(gameObject);
+            }
         }
     }
-
 
 
 
