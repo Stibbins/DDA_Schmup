@@ -45,6 +45,6 @@ public class Weapons : MonoBehaviour {
 
     public void NewWave()
     {
-        Debug.Log("NewWave triggered in Weapons");
+
     }
 }

@@ -108,6 +108,5 @@ public class Movement : MonoBehaviour {
     {
         _waveDelta = 0;
         _waveTimeStart = Time.time;
-        Debug.Log("NewWave triggered in Movement");
     }
 }

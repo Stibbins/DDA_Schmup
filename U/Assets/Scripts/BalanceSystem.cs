@@ -79,9 +79,12 @@ public class BalanceSystem : MonoBehaviour {
         _deltaRate = _playerMovement._deltaSampleRate;
         _playerTime = Time.time - _playerMovement._waveTimeStart;
         _maxDelta = _playerMovement._maxPossibleDelta / (_playerTime/_deltaRate);
+        
+        
+        //Relative delta calculation is broken, probably due to maxdelta
         _relativeDelta = _playerDelta / _maxDelta;
 
-
+        Debug.Log("Relative delta: " + _relativeDelta);
         if (_relativeDelta < 0.5f)
         {
             Debug.Log("Enemy amount increased");
