@@ -22,13 +22,17 @@ public class WaveController : MonoBehaviour {
     private Transform[] _transformArray;
 
 
-    //---- END WAVE SPA
 
     //---- WAVE MANAGEMENT
     private List<EnemyController> _enemyList = new List<EnemyController>();
     public bool _waveActive {get; private set;}
     private int _currentWave;
-    //---- END WAVE MANAGEMENT
+
+
+    // ---- OTHER
+
+    private BalanceSystem _balanceSystem;
+
 
     void Awake ()
     {
@@ -38,6 +42,7 @@ public class WaveController : MonoBehaviour {
         Random.seed = (int)Time.time;
         _transformArray = waveSpawn.GetComponentsInChildren<Transform>();
         _currentWave = 0;
+        _balanceSystem = BalanceSystem.instance;
     }
 
     void Update()
@@ -47,7 +52,14 @@ public class WaveController : MonoBehaviour {
             
             if (_spawnActive)
             {
-                
+                //Reset data collections for new wave
+                //Both null-checked singletons, it's fine
+                Movement.instance.NewWave();
+                Weapons.instance.NewWave();
+
+
+
+                //Spawn the wave
                 for (int i = 0; i < spawnCount; i++)
                 {
                     EnemyController eC = (EnemyController) Instantiate(enemyPrefab, _transformArray[i].position, Quaternion.identity);
@@ -63,10 +75,16 @@ public class WaveController : MonoBehaviour {
                 
             }
 
+
+            // Wave has been defeated
             if (_enemyList.Count < 1 && _currentWave > 0)
             {
                 _waveActive = false;
                 _spawnTimer = Time.time + spawnDelay; //Delay until next wave
+
+                //Update difficulty
+                _balanceSystem.ModifyEnemySpawnAmount();
+                
             }
 
             
@@ -92,9 +110,5 @@ public class WaveController : MonoBehaviour {
         _enemyList.Remove(enemy);
     }
 
-    public bool IsWaveActive()
-    {
-        return _waveActive;
-    }
 
 }

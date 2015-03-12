@@ -3,6 +3,20 @@ using   System.Collections;
 
 public class Movement : MonoBehaviour {
 
+
+    //Singleton implementation
+    private static Movement _instance;   
+    public static Movement instance
+    {
+        get
+        {
+            if (_instance == null) 
+            {
+                _instance = GameObject.FindObjectOfType<Movement>();
+            }
+            return _instance;
+        }
+    }
  
     public KeyCode keyUp;
     public KeyCode keyDown;
@@ -24,6 +38,7 @@ public class Movement : MonoBehaviour {
     private float _currentSpeed;
     private Transform _transform;
     private Rigidbody2D _rigidbody;
+    private float _maxDistTravelled;
 
     //---- FUZZY IMPLEMENTATION
 
@@ -35,7 +50,7 @@ public class Movement : MonoBehaviour {
 
     //---- END OF FUZZY IMPLEMENTATION
 
-	void Start () 
+	void Awake () 
     {
         _transform = GetComponent<Transform>();
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -47,12 +62,14 @@ public class Movement : MonoBehaviour {
 	void FixedUpdate () 
     {
         // -- Store position every second
-        if (Time.time > _positionTimer + 2)
+        if (Time.time > _positionTimer + 1)
         {
             _waveDelta += Vector3.Distance(_previousPosition, transform.position);
             _previousPosition = transform.position;
             _positionTimer = Time.time;
         }
+
+        // -- Get input
         Vector3 acceleration = Vector3.zero;
         if (Input.GetKey(keyUp))
             acceleration += _transform.up;
@@ -63,14 +80,26 @@ public class Movement : MonoBehaviour {
         if (Input.GetKey(keyLeft))
             acceleration -= _transform.right;
 
-        acceleration.z = 0;
+        // -- Translate input into acceleration
+        acceleration.z = 0; //Safeguard
         Vector3 normalizedVector = _rigidbody.velocity.normalized;
         float velocityMagnitude = _rigidbody.velocity.magnitude / topSpeed;
         acceleration *= accelerationCurve.Evaluate(velocityMagnitude) * accelerationFactor;
 
+        
         _rigidbody.AddForce(acceleration);
         _rigidbody.AddForce(frictionCurve.Evaluate(velocityMagnitude) * frictionFactor * -normalizedVector);
-        //_transform.Translate(acceleration);
+        
 
+    }
+
+
+
+
+    public void NewWave ()
+    {
+        _waveDelta = 0;
+        _waveTimeStart = Time.time;
+        Debug.Log("NewWave triggered in Movement");
     }
 }

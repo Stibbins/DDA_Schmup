@@ -3,6 +3,21 @@ using System.Collections;
 
 public class BalanceSystem : MonoBehaviour {
 
+    //Singleton
+    private static BalanceSystem _instance;
+    public static BalanceSystem instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<BalanceSystem>();
+            }
+            return _instance;
+        }
+    }
+
+
 
     private Movement _playerMovement;
 
@@ -32,10 +47,10 @@ public class BalanceSystem : MonoBehaviour {
     public float _enemySpawnerMod;
 
 
-	void Start () 
+	void Awake () 
     {
         S_MissileValues _missileValues = new S_MissileValues(sv_MissileRate, sv_MissileArc);
-        _playerMovement = GameObject.Find("Player").GetComponent<Movement>();
+        _playerMovement = Movement.instance;
 	}
 	
 	
@@ -54,6 +69,7 @@ public class BalanceSystem : MonoBehaviour {
     {
         float _playerDelta = _playerMovement._waveDelta;
         float _playerTime = Time.time - _playerMovement._waveTimeStart;
+        Debug.Log("Enemy amount updated");
     }
 
 

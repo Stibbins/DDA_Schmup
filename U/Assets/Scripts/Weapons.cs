@@ -3,6 +3,19 @@ using System.Collections;
 
 public class Weapons : MonoBehaviour {
 
+    private static Weapons _instance;
+    public static Weapons instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<Weapons>();
+            }
+            return _instance;
+        }
+    }
+
     public KeyCode keyFire;
 
     [SerializeField]
@@ -29,4 +42,9 @@ public class Weapons : MonoBehaviour {
             Instantiate(bulletPrefab, cannonTransform.position, Quaternion.identity);
         }
 	}
+
+    public void NewWave()
+    {
+        Debug.Log("NewWave triggered in Weapons");
+    }
 }
