@@ -35,20 +35,24 @@ public class Movement : MonoBehaviour {
 
     //---- END OF FUZZY IMPLEMENTATION
 
-	void Awake  () 
+	void Start () 
     {
         _transform = GetComponent<Transform>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _waveTimeStart = Time.time;
+        _positionTimer = Time.time;
     }
 	
 	
 	void FixedUpdate () 
     {
-        if (Time.time > _positionTimer + 1)
+        // -- Store position every second
+        if (Time.time > _positionTimer + 2)
         {
+            _waveDelta += Vector3.Distance(_previousPosition, transform.position);
             _previousPosition = transform.position;
             _positionTimer = Time.time;
+            Debug.Log(_waveDelta);
         }
         Vector3 acceleration = Vector3.zero;
         if (Input.GetKey(keyUp))
@@ -68,7 +72,7 @@ public class Movement : MonoBehaviour {
         _rigidbody.AddForce(acceleration);
         _rigidbody.AddForce(frictionCurve.Evaluate(velocityMagnitude) * frictionFactor * -normalizedVector);
         //_transform.Translate(acceleration);
-        _waveDelta += Vector3.Distance(_previousPosition, transform.position);
-        
+
+        Debug.Log(Time.time);
     }
 }
