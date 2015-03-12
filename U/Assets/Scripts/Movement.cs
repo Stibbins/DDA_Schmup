@@ -52,7 +52,6 @@ public class Movement : MonoBehaviour {
             _waveDelta += Vector3.Distance(_previousPosition, transform.position);
             _previousPosition = transform.position;
             _positionTimer = Time.time;
-            Debug.Log(_waveDelta);
         }
         Vector3 acceleration = Vector3.zero;
         if (Input.GetKey(keyUp))
@@ -73,6 +72,5 @@ public class Movement : MonoBehaviour {
         _rigidbody.AddForce(frictionCurve.Evaluate(velocityMagnitude) * frictionFactor * -normalizedVector);
         //_transform.Translate(acceleration);
 
-        Debug.Log(Time.time);
     }
 }
