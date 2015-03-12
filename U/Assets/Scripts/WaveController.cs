@@ -83,7 +83,7 @@ public class WaveController : MonoBehaviour {
                 _spawnTimer = Time.time + spawnDelay; //Delay until next wave
 
                 //Update difficulty
-                _balanceSystem.ModifyEnemySpawnAmount();
+                spawnCount += _balanceSystem.ModifyEnemySpawnAmount();
                 
             }
 
@@ -95,6 +95,7 @@ public class WaveController : MonoBehaviour {
         {
             _waveActive = true;
             _spawnActive = true;
+
         }
        
     }

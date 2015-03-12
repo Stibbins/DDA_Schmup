@@ -44,9 +44,10 @@ public class Movement : MonoBehaviour {
 
     private Vector3 _previousPosition;
     private float _positionTimer;
-    public float _waveDelta = 0;
-
-    public float _waveTimeStart;
+    public float _waveDelta { get; private set; }
+    public float _maxPossibleDelta { get; private set; }
+    public float _waveTimeStart { get; private set; }
+    public float _deltaSampleRate { get; private set; }
 
     //---- END OF FUZZY IMPLEMENTATION
 
@@ -56,17 +57,24 @@ public class Movement : MonoBehaviour {
         _rigidbody = GetComponent<Rigidbody2D>();
         _waveTimeStart = Time.time;
         _positionTimer = Time.time;
+        _deltaSampleRate = 1;
+        _maxPossibleDelta = 0;
     }
 	
 	
 	void FixedUpdate () 
     {
         // -- Store position every second
-        if (Time.time > _positionTimer + 1)
+        if (Time.time > _positionTimer + _deltaSampleRate)
         {
-            _waveDelta += Vector3.Distance(_previousPosition, transform.position);
+            float _waveDistance = Vector3.Distance(_previousPosition, transform.position);
+            _waveDelta += _waveDistance;
             _previousPosition = transform.position;
             _positionTimer = Time.time;
+            if (_waveDistance > _maxPossibleDelta)
+            {
+                _maxPossibleDelta = _waveDistance;
+            }
         }
 
         // -- Get input

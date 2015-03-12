@@ -45,6 +45,12 @@ public class BalanceSystem : MonoBehaviour {
     //---- FUZZY IMPLEMENTATION
     
     public float _enemySpawnerMod;
+    private float _playerDelta;
+    private float _deltaRate;
+    private float _maxDelta;
+    private float _relativeDelta;
+    private float _playerTime;
+   
 
 
 	void Awake () 
@@ -65,11 +71,29 @@ public class BalanceSystem : MonoBehaviour {
         return  _missileValues;
     }
 
-    public void ModifyEnemySpawnAmount()
+
+    //Part of the difficulty adjustment
+    public int ModifyEnemySpawnAmount()
     {
-        float _playerDelta = _playerMovement._waveDelta;
-        float _playerTime = Time.time - _playerMovement._waveTimeStart;
-        Debug.Log("Enemy amount updated");
+        _playerDelta = _playerMovement._waveDelta;
+        _deltaRate = _playerMovement._deltaSampleRate;
+        _playerTime = Time.time - _playerMovement._waveTimeStart;
+        _maxDelta = _playerMovement._maxPossibleDelta / (_playerTime/_deltaRate);
+        _relativeDelta = _playerDelta / _maxDelta;
+
+
+        if (_relativeDelta < 0.5f)
+        {
+            Debug.Log("Enemy amount increased");
+            return 1;
+        }
+        
+        else
+        {
+            Debug.Log("Enemy amount decreased");
+            return -1; 
+        }
+        
     }
 
 
