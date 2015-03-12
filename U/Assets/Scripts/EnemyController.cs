@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Holoville.HOTween;
-using Holoville.HOTween.Plugins;
-using Holoville.HOTween.Path;
+
 
 public class EnemyController : MonoBehaviour {
 
