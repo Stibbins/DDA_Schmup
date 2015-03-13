@@ -22,7 +22,6 @@ public class WaveController : MonoBehaviour {
     private Transform[] _transformArray;
 
 
-
     //---- WAVE MANAGEMENT
     private List<EnemyController> _enemyList = new List<EnemyController>();
     public bool _waveActive {get; private set;}
@@ -58,6 +57,12 @@ public class WaveController : MonoBehaviour {
                 Weapons.instance.NewWave();
 
 
+                //Make sure the number of spawns does not exceed possible
+                //spawn locations
+                if (_transformArray.Length < spawnCount)
+                {
+                    spawnCount = _transformArray.Length;
+                }
 
                 //Spawn the wave
                 for (int i = 0; i < spawnCount; i++)

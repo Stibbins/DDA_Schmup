@@ -78,7 +78,7 @@ public class BalanceSystem : MonoBehaviour {
         _playerDelta = _playerMovement._waveDelta;
         _deltaRate = _playerMovement._deltaSampleRate;
         _playerTime = Time.time - _playerMovement._waveTimeStart;
-        _maxDelta = _playerMovement._maxPossibleDelta / (_playerTime/_deltaRate);
+        _maxDelta = Screen.width * 2;
         
         
         //Relative delta calculation is broken, probably due to maxdelta
