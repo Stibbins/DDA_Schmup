@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour {
         {
             PlayerDamage playerShot = other.GetComponent<PlayerDamage>();
             health -= playerShot.damageAmount;
-            playerShot.DestroyInstance();
+            Destroy(other.gameObject);
             if (health <= 0)
             {
                 _alive = false;
