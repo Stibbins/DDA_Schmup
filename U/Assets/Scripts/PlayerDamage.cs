@@ -18,10 +18,4 @@ public class PlayerDamage : MonoBehaviour {
 	
 	}
 
-    public void DestroyInstance ()
-    {
-        Destroy(gameObject);
-        return;
-    }
-
 }
