@@ -39,7 +39,6 @@ public class Movement : MonoBehaviour {
     */
     private float _currentSpeed;
     private Transform _transform;
-    private Rigidbody2D _rigidbody;
     private float _maxDistTravelled;
 
     //---- FUZZY IMPLEMENTATION
@@ -56,7 +55,6 @@ public class Movement : MonoBehaviour {
 	void Awake () 
     {
         _transform = GetComponent<Transform>();
-        _rigidbody = GetComponent<Rigidbody2D>();
         _waveTimeStart = Time.time;
         _positionTimer = Time.time;
         _deltaSampleRate = 1;
@@ -89,23 +87,6 @@ public class Movement : MonoBehaviour {
 
         acceleration.z = 0;
         transform.Translate(acceleration.normalized* speedModifier * Time.deltaTime);
-
-
-
-        /*
-         * Old Movement
-         * 
-         * 
-        // -- Translate input into acceleration
-        acceleration.z = 0; //Safeguard
-        Vector3 normalizedVector = _rigidbody.velocity.normalized;
-        float velocityMagnitude = _rigidbody.velocity.magnitude / topSpeed;
-        acceleration *= accelerationCurve.Evaluate(velocityMagnitude) * accelerationFactor;
-
-        
-        _rigidbody.AddForce(acceleration);
-        _rigidbody.AddForce(frictionCurve.Evaluate(velocityMagnitude) * frictionFactor * -normalizedVector);
-        */
 
     }
 

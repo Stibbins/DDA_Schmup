@@ -51,12 +51,7 @@ public class WaveController : MonoBehaviour {
             
             if (_spawnActive)
             {
-                //Reset data collections for new wave
-                //Both null-checked singletons, it's fine
-                Movement.instance.NewWave();
-                Weapons.instance.NewWave();
-
-
+                
                 //Make sure the number of spawns does not exceed possible
                 //spawn locations
                 if (_transformArray.Length < spawnCount)
@@ -77,6 +72,11 @@ public class WaveController : MonoBehaviour {
                 // -------- Wave has spawned
                 _currentWave++;
                 _spawnActive = false;
+                
+                //Reset data collections for new wave
+                //Both null-checked singletons, it's fine
+                Movement.instance.NewWave();
+                Weapons.instance.NewWave();
                 
             }
 
