@@ -33,8 +33,7 @@ public class E_Laser : MonoBehaviour {
 
         if (_lockRotation == false)
         {
-            // TODO: Build another rotation function
-            transform.LookAt(_playerPosition);
+            RotateTowardPlayer();
             RaycastHit2D _rayHit = Physics2D.Raycast(transform.position, Vector2.up);
             if (_rayHit != null && _rayHit.transform.CompareTag("Player"))
             {
@@ -51,8 +50,28 @@ public class E_Laser : MonoBehaviour {
             //Own prefab?
             Debug.Log("LazoR!");
         }
-
-
-
 	}
+
+
+    private void RotateTowardPlayer()
+    {
+        Vector2 _ownVector = transform.position;
+        Vector2 _selfToPlayerVector = _playerPosition - _ownVector;
+        float angle = Vector2.Angle(-transform.up, _selfToPlayerVector);
+
+        Vector3 cross = Vector3.Cross(-transform.up, _selfToPlayerVector);
+        if (cross.z > 0)
+            angle = 360 - angle;
+
+        if (0 < angle && angle < 180)
+        {
+            //Rotate.... right?
+        }
+
+        if ( 180 < angle && angle < 360)
+        {
+            //Rotate... left?
+        }
+    }
+
 }

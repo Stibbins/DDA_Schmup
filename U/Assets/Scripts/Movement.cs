@@ -22,8 +22,10 @@ public class Movement : MonoBehaviour {
     public KeyCode keyDown;
     public KeyCode keyLeft;
     public KeyCode keyRight;
-   
-    
+
+    public float speedModifier;
+
+    /*
     [SerializeField]
     private float topSpeed;
     [SerializeField]
@@ -34,7 +36,7 @@ public class Movement : MonoBehaviour {
     private AnimationCurve frictionCurve;
     [SerializeField]
     private float frictionFactor;
-    
+    */
     private float _currentSpeed;
     private Transform _transform;
     private Rigidbody2D _rigidbody;
@@ -77,6 +79,7 @@ public class Movement : MonoBehaviour {
             }
         }
 
+               
         // -- Get input
         Vector3 acceleration = Vector3.zero;
         if (Input.GetKey(keyUp))
@@ -88,6 +91,16 @@ public class Movement : MonoBehaviour {
         if (Input.GetKey(keyLeft))
             acceleration -= _transform.right;
 
+        Debug.Log(acceleration);
+        acceleration.z = 0;
+        transform.Translate(acceleration.normalized* speedModifier);
+
+
+
+        /*
+         * Old Movement
+         * 
+         * 
         // -- Translate input into acceleration
         acceleration.z = 0; //Safeguard
         Vector3 normalizedVector = _rigidbody.velocity.normalized;
@@ -97,7 +110,7 @@ public class Movement : MonoBehaviour {
         
         _rigidbody.AddForce(acceleration);
         _rigidbody.AddForce(frictionCurve.Evaluate(velocityMagnitude) * frictionFactor * -normalizedVector);
-        
+        */
 
     }
 
