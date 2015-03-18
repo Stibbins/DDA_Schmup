@@ -73,10 +73,6 @@ public class Movement : MonoBehaviour {
             _waveDelta += _waveDistance;
             _previousPosition = transform.position;
             _positionTimer = Time.time;
-            if (_waveDistance > _maxPossibleDelta)
-            {
-                _maxPossibleDelta = _waveDistance;
-            }
         }
 
                
@@ -91,9 +87,8 @@ public class Movement : MonoBehaviour {
         if (Input.GetKey(keyLeft))
             acceleration -= _transform.right;
 
-        Debug.Log(acceleration);
         acceleration.z = 0;
-        transform.Translate(acceleration.normalized* speedModifier);
+        transform.Translate(acceleration.normalized* speedModifier * Time.deltaTime);
 
 
 
