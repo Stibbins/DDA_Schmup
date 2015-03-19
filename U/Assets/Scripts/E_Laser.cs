@@ -3,7 +3,8 @@ using System.Collections;
 
 public class E_Laser : MonoBehaviour {
 
-    private Texture2D _laserSprite;
+    public Transform tinyLaser;
+    public Transform bigLaser;
 
 
     private bool _lockRotation;
@@ -66,6 +67,7 @@ public class E_Laser : MonoBehaviour {
         if (0 < angle && angle < 180)
         {
             //Rotate.... right?
+           // transform.Rotate(Vector3.forward, Mathf.SmoothDampAngle(angle, ))
         }
 
         if ( 180 < angle && angle < 360)
