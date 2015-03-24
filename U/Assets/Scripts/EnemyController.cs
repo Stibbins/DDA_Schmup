@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour {
 
     [SerializeField]
     private float health;
-    public bool _alive { get; private set; }
 
     private static WaveController _waveController;
 
@@ -17,7 +16,6 @@ public class EnemyController : MonoBehaviour {
         {
             _waveController = GameObject.Find("GameLogic").GetComponent<WaveController>();
         }
-        _alive = true;
 	}
 	
 
@@ -31,7 +29,6 @@ public class EnemyController : MonoBehaviour {
             Destroy(other.gameObject);
             if (health <= 0)
             {
-                _alive = false;
                 _waveController.UnTrackEnemy(this);
                 Destroy(gameObject);
             }

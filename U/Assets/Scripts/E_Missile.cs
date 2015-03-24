@@ -32,6 +32,7 @@ public class E_Missile : MonoBehaviour {
         {
             _lastShot = Time.time;
             Debug.Log("Shot fired");
+            Instantiate(missilePrefab, transform.position, Quaternion.identity);
         }
 	}
 
