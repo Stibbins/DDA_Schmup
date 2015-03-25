@@ -22,12 +22,16 @@ public class PlayerController : MonoBehaviour {
     private float _currentHealth;
    
 
+    //----------
+    public float laserDamageDelay;
+    private float _nextLaserDamageTick;
 
     //---------------
 
 	void Awake () 
     {
         _currentHealth = playerMaxHealth;
+        _nextLaserDamageTick = Time.time;
 	}
 
 	void Update () 
@@ -42,6 +46,14 @@ public class PlayerController : MonoBehaviour {
             EnemyDamage damageClass = other.GetComponent<EnemyDamage>();
             _currentHealth -= damageClass.damageAmount;
             Destroy(other.gameObject);
+            Debug.Log("Current health: " + _currentHealth);
+        }
+
+        if (other.CompareTag("EnemyLaser") && Time.time > _nextLaserDamageTick)
+        {
+            EnemyDamage damageClass = other.GetComponent<EnemyDamage>();
+            _currentHealth -= damageClass.damageAmount;
+            _nextLaserDamageTick = Time.time + laserDamageDelay;
             Debug.Log("Current health: " + _currentHealth);
         }
     }

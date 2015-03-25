@@ -8,22 +8,27 @@ public class E_Laser : MonoBehaviour {
 
 
     private bool _lockRotation;
-    private float _rotationSpeed;
-    private float _attackDelay;
+    public float _rotationSpeed;
+    public float _attackDelay;
     private float _attackDamage;
     private Vector2 _playerPosition;
     private float _attackTime;
-    private float _attackLength = 1f;
+    public float _attackLength;
 
     private Vector2 _rotationDirection;
+    private Transform _tinyLaserTransform;
+    private Transform _bigLaserTransform;
 
 
 	void Awake () 
     {
         _lockRotation = false;
         _attackTime = Time.time - 1;
-        _rotationSpeed = 10;
-        _attackDelay = 1;
+        _tinyLaserTransform = Instantiate(tinyLaser, transform.position, Quaternion.identity) as Transform;
+        _tinyLaserTransform.parent = transform;
+        _bigLaserTransform = Instantiate(bigLaser, transform.position, Quaternion.identity) as Transform;
+        _bigLaserTransform.parent = transform;
+        _bigLaserTransform.gameObject.SetActive(false);
 	}
 	
 
@@ -36,8 +41,7 @@ public class E_Laser : MonoBehaviour {
         if (_lockRotation == false)
         {
             RotateTowardPlayer();
-            RaycastHit2D _rayHit = Physics2D.Raycast(transform.position, transform.up);
-            Debug.DrawRay(transform.position, transform.up);
+            RaycastHit2D _rayHit = Physics2D.Raycast(transform.position, -transform.up);
             if (_rayHit.collider != null)
             {
                 if (_rayHit.collider.CompareTag("Player"))
@@ -50,11 +54,19 @@ public class E_Laser : MonoBehaviour {
         
         
 	    
-        if (_lockRotation == true && Time.time > _attackTime && Time.time < _attackTime + _attackLength)
+        if (_lockRotation == true && Time.time > _attackTime)
         {
-            //Display large laser
-            Debug.Log("LazoR!");
+            _tinyLaserTransform.gameObject.SetActive(false);
+            _bigLaserTransform.gameObject.SetActive(true);
+
+        }
+
+        if (_lockRotation == true && Time.time > _attackTime + _attackLength)
+        {
             _lockRotation = false;
+            _tinyLaserTransform.gameObject.SetActive(true);
+            _bigLaserTransform.gameObject.SetActive(false);
+            
         }
 	}
 
@@ -63,7 +75,7 @@ public class E_Laser : MonoBehaviour {
     {
 
         Vector2 temp = transform.position;
-        _rotationDirection = _playerPosition - temp;
+        _rotationDirection = temp - _playerPosition;
         _rotationDirection.Normalize();
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward, _rotationDirection), Time.time * _rotationSpeed);
         
