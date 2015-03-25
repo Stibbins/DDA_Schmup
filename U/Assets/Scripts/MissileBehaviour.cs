@@ -3,6 +3,9 @@ using System.Collections;
 
 public class MissileBehaviour : MonoBehaviour {
 
+    public float health;
+
+
     private float _speed = 2;
     private float _rotationSpeed = 1;
 
@@ -29,10 +32,18 @@ public class MissileBehaviour : MonoBehaviour {
         transform.Translate(-transform.up * _speed * Time.deltaTime);
 	}
 
-    void OnTriggerEnter2d (Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Name: " + other.name);
+        if (other.CompareTag("PlayerShot"))
+        {
+            PlayerDamage playerShot = other.GetComponent<PlayerDamage>();
+            health -= playerShot.damageAmount;
+            Destroy(other.gameObject);
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
-
 
 }

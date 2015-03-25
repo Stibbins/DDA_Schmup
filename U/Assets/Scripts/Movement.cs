@@ -37,9 +37,7 @@ public class Movement : MonoBehaviour {
     [SerializeField]
     private float frictionFactor;
     */
-    private float _currentSpeed;
     private Transform _transform;
-    private float _maxDistTravelled;
 
     //---- FUZZY IMPLEMENTATION
 

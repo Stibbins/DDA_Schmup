@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D other)
     {
-        Debug.Log("Trigger");
         if (other.CompareTag("EnemyShot"))
         {
             EnemyDamage damageClass = other.GetComponent<EnemyDamage>();
