@@ -28,4 +28,11 @@ public class MissileBehaviour : MonoBehaviour {
 
         transform.Translate(-transform.up * _speed * Time.deltaTime);
 	}
+
+    void OnTriggerEnter2d (Collider2D other)
+    {
+        Debug.Log("Name: " + other.name);
+    }
+
+
 }

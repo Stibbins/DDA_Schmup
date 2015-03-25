@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Awake () 
     {
-	
+        _currentHealth = 100;
 	}
 
 	void Update () 
