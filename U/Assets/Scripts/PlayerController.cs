@@ -19,24 +19,15 @@ public class PlayerController : MonoBehaviour {
 
 
     public float playerMaxHealth;
-    public float _currentHealth
-    {
-        get
-        {
-            return _currentHealth;
-        }
-        private set
-        {
-            _currentHealth = value;
-        }
-    }
+    private float _currentHealth;
+   
 
 
     //---------------
 
 	void Awake () 
     {
-        _currentHealth = 100;
+        _currentHealth = playerMaxHealth;
 	}
 
 	void Update () 
@@ -46,6 +37,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D other)
     {
+        Debug.Log("Trigger");
         if (other.CompareTag("EnemyShot"))
         {
             EnemyDamage damageClass = other.GetComponent<EnemyDamage>();
