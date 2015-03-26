@@ -83,7 +83,6 @@ public class BalanceSystem : MonoBehaviour {
         
         _relativeDelta = _playerDelta / _maxDelta;
 
-        Debug.Log("Relative delta: " + _relativeDelta);
         if (_relativeDelta < 0.5f)
         {
             Debug.Log("Enemy amount increased");

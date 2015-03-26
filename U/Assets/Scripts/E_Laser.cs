@@ -77,7 +77,7 @@ public class E_Laser : MonoBehaviour {
         Vector2 temp = transform.position;
         _rotationDirection = temp - _playerPosition;
         _rotationDirection.Normalize();
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward, _rotationDirection), Time.time * _rotationSpeed);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(Vector3.forward, _rotationDirection), Time.time * _rotationSpeed);
         
 
     }
