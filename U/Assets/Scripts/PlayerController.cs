@@ -20,18 +20,11 @@ public class PlayerController : MonoBehaviour {
 
     public float playerMaxHealth;
     private float _currentHealth;
-   
 
-    //----------
-    public float laserDamageDelay;
-    private float _nextLaserDamageTick;
-
-    //---------------
 
 	void Awake () 
     {
         _currentHealth = playerMaxHealth;
-        _nextLaserDamageTick = Time.time;
 	}
 
 	void Update () 
@@ -49,12 +42,34 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Current health: " + _currentHealth);
         }
 
-        if (other.CompareTag("EnemyLaser") && Time.time > _nextLaserDamageTick)
+        
+    }
+    
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("EnemyLaser"))
         {
             EnemyDamage damageClass = other.GetComponent<EnemyDamage>();
-            _currentHealth -= damageClass.damageAmount;
-            _nextLaserDamageTick = Time.time + laserDamageDelay;
-            Debug.Log("Current health: " + _currentHealth);
+            LaserTimer laserClass = other.GetComponent<LaserTimer>();
+            if (Time.time > laserClass.nextDamageTime)
+            {
+                _currentHealth -= damageClass.damageAmount;
+                laserClass.SetNewDamageTick();
+                Debug.Log("Current health: " + _currentHealth);
+            }
+
+        }
+
+        if (other.CompareTag("EnemyLeech"))
+        {
+            E_Leech leechClass = other.GetComponent<E_Leech>();
+            if (Time.time > leechClass.nextDamageTime)
+            {
+                _currentHealth -= leechClass.leechDamage;
+                leechClass.SetNewDamageTick();
+                Debug.Log("Current health: " + _currentHealth); 
+            }
+                       
         }
     }
 }
