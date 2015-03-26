@@ -32,7 +32,7 @@ public class E_Laser : MonoBehaviour {
 	}
 	
 
-	void Update () {
+	void FixedUpdate () {
         _playerPosition = Movement.instance.transform.position;
         Vector2 _2dPosition = new Vector2();
         _2dPosition.x = transform.position.x;
