@@ -12,6 +12,20 @@ public class WaveController : MonoBehaviour {
      * When there are none left, trigger end-of-wave behaviour.
      */
     //---- WAVE SPAWNING
+
+    private static WaveController _instance;
+    public static WaveController instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<WaveController>();
+            }
+            return _instance;
+        }
+    }
+
     public EnemyController enemyPrefab;
     public int spawnCount;
     public float spawnDelay;
@@ -25,7 +39,7 @@ public class WaveController : MonoBehaviour {
     //---- WAVE MANAGEMENT
     private List<EnemyController> _enemyList = new List<EnemyController>();
     public bool _waveActive {get; private set;}
-    private int _currentWave;
+    public int _currentWave { get; private set; }
 
 
     // ---- OTHER
