@@ -30,6 +30,7 @@ public class WaveController : MonoBehaviour {
     public int spawnCount;
     public float spawnDelay;
 
+    private bool _gameActive;
     private bool _spawnActive;
     private float _spawnTimer;
     public Transform waveSpawn;
@@ -43,12 +44,13 @@ public class WaveController : MonoBehaviour {
 
 
     // ---- OTHER
-
+    public int numberOfWaves;
     private BalanceSystem _balanceSystem;
 
 
     void Awake ()
     {
+        _gameActive = true;
         _waveActive = false;
         _spawnActive = true;
         _spawnTimer = Time.time + spawnDelay;
@@ -60,7 +62,14 @@ public class WaveController : MonoBehaviour {
 
     void Update()
     {
-        if (_waveActive)
+        if (_currentWave >= numberOfWaves)
+        {
+            _gameActive = false;
+        }
+
+        
+
+        if (_waveActive && _gameActive)
         {
             
             if (_spawnActive)
@@ -96,7 +105,7 @@ public class WaveController : MonoBehaviour {
 
 
             // Wave has been defeated
-            if (_enemyList.Count < 1 && _currentWave > 0)
+            if (_enemyList.Count < 1)
             {
                 _waveActive = false;
                 _spawnTimer = Time.time + spawnDelay; //Delay until next wave
@@ -116,7 +125,12 @@ public class WaveController : MonoBehaviour {
             _spawnActive = true;
 
         }
-       
+
+        if (!_gameActive && Input.GetKeyDown(KeyCode.R))
+        {
+            _currentWave = 0;
+            _gameActive = true;
+        }
     }
 
 
