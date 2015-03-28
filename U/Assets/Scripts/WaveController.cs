@@ -28,6 +28,7 @@ public class WaveController : MonoBehaviour {
 
     public EnemyController enemyPrefab;
     public int spawnCount;
+    private int _startingSpawnCount;
     public float spawnDelay;
 
     private bool _gameActive;
@@ -50,13 +51,13 @@ public class WaveController : MonoBehaviour {
 
     void Awake ()
     {
-        _gameActive = true;
-        _waveActive = false;
-        _spawnActive = true;
-        _spawnTimer = Time.time + spawnDelay;
+        _startingSpawnCount = spawnCount;
+        SetStartingValues();
+        
         Random.seed = (int)Time.time;
+
         _transformArray = waveSpawn.GetComponentsInChildren<Transform>();
-        _currentWave = 0;
+        
         _balanceSystem = BalanceSystem.instance;
     }
 
@@ -128,8 +129,7 @@ public class WaveController : MonoBehaviour {
 
         if (!_gameActive && Input.GetKeyDown(KeyCode.R))
         {
-            _currentWave = 0;
-            _gameActive = true;
+            SetStartingValues();            
         }
     }
 
@@ -144,5 +144,13 @@ public class WaveController : MonoBehaviour {
         _enemyList.Remove(enemy);
     }
 
-
+    private void SetStartingValues ()
+    {
+        _gameActive = true;
+        _waveActive = false;
+        _spawnActive = true;
+        _spawnTimer = Time.time + spawnDelay;
+        spawnCount = _startingSpawnCount;
+        _currentWave = 0;
+    }
 }
