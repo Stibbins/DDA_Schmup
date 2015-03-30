@@ -19,17 +19,14 @@ public class PlayerController : MonoBehaviour {
 
 
     public float playerMaxHealth;
-    private float _currentHealth;
+    public float currentHealth;
+    public float waveHealthDelta;
 
 
 	void Awake () 
     {
-        _currentHealth = playerMaxHealth;
-	}
-
-	void Update () 
-    {
-	
+        currentHealth = playerMaxHealth;
+        waveHealthDelta = 0f;
 	}
 
     void OnTriggerEnter2D (Collider2D other)
@@ -37,9 +34,10 @@ public class PlayerController : MonoBehaviour {
         if (other.CompareTag("EnemyShot"))
         {
             EnemyDamage damageClass = other.GetComponent<EnemyDamage>();
-            _currentHealth -= damageClass.damageAmount;
+            currentHealth -= damageClass.damageAmount;
+            waveHealthDelta += damageClass.damageAmount;
             Destroy(other.gameObject);
-            Debug.Log("Current health: " + _currentHealth);
+            Debug.Log("Current health: " + currentHealth);
         }
 
         
@@ -53,9 +51,10 @@ public class PlayerController : MonoBehaviour {
             LaserTimer laserClass = other.GetComponent<LaserTimer>();
             if (Time.time > laserClass.nextDamageTime)
             {
-                _currentHealth -= damageClass.damageAmount;
+                currentHealth -= damageClass.damageAmount;
+                waveHealthDelta += damageClass.damageAmount;
                 laserClass.SetNewDamageTick();
-                Debug.Log("Current health: " + _currentHealth);
+                Debug.Log("Current health: " + currentHealth);
             }
 
         }
@@ -65,11 +64,17 @@ public class PlayerController : MonoBehaviour {
             E_Leech leechClass = other.GetComponent<E_Leech>();
             if (Time.time > leechClass.nextDamageTime)
             {
-                _currentHealth -= E_Leech.leechDamage;
+                currentHealth -= E_Leech.leechDamage;
+                waveHealthDelta = +E_Leech.leechDamage;
                 leechClass.SetNewDamageTick();
-                Debug.Log("Current health: " + _currentHealth); 
+                Debug.Log("Current health: " + currentHealth); 
             }
                        
         }
+    }
+
+    public void NewWave()
+    {
+        waveHealthDelta = 0;
     }
 }

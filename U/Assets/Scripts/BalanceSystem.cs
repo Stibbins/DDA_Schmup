@@ -20,6 +20,7 @@ public class BalanceSystem : MonoBehaviour {
 
 
     private Movement _playerMovement;
+    private PlayerController _playerController;
 
     ///-----STARTING VALUES!
     public float sv_MissileRate;
@@ -40,14 +41,20 @@ public class BalanceSystem : MonoBehaviour {
 
 
     //---- FUZZY IMPLEMENTATION
-    
-    public float _enemySpawnerMod;
+    // MOVEMENT
+    //public float _enemySpawnerMod;
     private float _playerDelta;
     private float _deltaRate;
     private float _maxDelta;
     private float _relativeDelta;
     private float _playerTime;
    
+    //HEALTH
+    private float _healthLoss;
+    private float _maxHealth;
+    private float _currentHealth;
+    private float _previousHealth;
+    private float _valueModifier;
 
 
 	void Awake () 
@@ -59,6 +66,9 @@ public class BalanceSystem : MonoBehaviour {
         _LeechSpeed = sv_LeechSpeed;
         _LeechDamage = sv_LeechDamage;
         _playerMovement = Movement.instance;
+        _playerController = PlayerController.instance;
+        _previousHealth = _playerController.playerMaxHealth;
+        _currentHealth = _previousHealth;
      
 	}
 	
@@ -88,6 +98,61 @@ public class BalanceSystem : MonoBehaviour {
         
     }
 
+    public void ModifyEnemyValues()
+    {
+        _previousHealth = _currentHealth;
+        _healthLoss = _playerController.waveHealthDelta;
+        _maxHealth = _playerController.playerMaxHealth;
+        _currentHealth = _playerController.currentHealth;
+
+        //_valueModifier = (_currentHealth / _maxHealth) + (_healthLoss / _previousHealth);
+
+        //LOW HEALTH
+        if (_currentHealth < _maxHealth/2)
+        {
+            if (_healthLoss >= _previousHealth/2)
+            {
+                _valueModifier -= 1;
+            }
+
+            if (_healthLoss < _previousHealth/2 && _healthLoss > 0)
+            {
+                _valueModifier += 0.5f;
+            }
+            if (_healthLoss <= 0)
+            {
+                _valueModifier += 0.75f;
+            }
+        }
+
+        //HIGH HEALTH
+        if (_currentHealth >= _maxHealth / 2)
+        {
+            if (_healthLoss >= _previousHealth / 2)
+            {
+                _valueModifier -= 0.5f;
+            }
+
+            if (_healthLoss < _previousHealth / 2 && _healthLoss > 0)
+            {
+                _valueModifier += 1f;
+            }
+            if (_healthLoss <= 0)
+            {
+                _valueModifier += 2f;
+            }
+        }
+
+        _LaserRotation += _valueModifier;
+        _LaserDelay -= _valueModifier;
+       // _MissileArc += _valueModifier/10;
+        _MissileRate -= _valueModifier;
+        _LeechSpeed += _valueModifier;
+        _LeechDamage += _valueModifier;
+        
+
+    }
+
     public void SetValues()
     {
         E_Laser._rotationSpeed = _LaserRotation;
@@ -96,6 +161,7 @@ public class BalanceSystem : MonoBehaviour {
         E_Missile._fireRate = _MissileRate;
         E_Leech.movementSpeed = _LeechSpeed;
         E_Leech.leechDamage = _LeechDamage;
+        Debug.Log("Enemy Values modified");
     }
 
 }

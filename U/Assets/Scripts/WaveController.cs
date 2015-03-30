@@ -88,12 +88,11 @@ public class WaveController : MonoBehaviour {
                 //Spawn the wave
                 for (int i = 0; i < spawnCount; i++)
                 {
-                    EnemyController eC = (EnemyController) Instantiate(leechPrefab, _transformArray[i].position, Quaternion.identity);
+                    EnemyController eC = (EnemyController) Instantiate(missilePrefab, _transformArray[i].position, Quaternion.identity);
                     TrackEnemy(eC);
-                    //eC.SetValues(); //Function not implemented yet
-                    _balanceSystem.SetValues();
+                    
                 }
-
+                _balanceSystem.SetValues();
                 
                 
                 // -------- Wave has spawned
@@ -104,6 +103,7 @@ public class WaveController : MonoBehaviour {
                 //Both null-checked singletons, it's fine
                 Movement.instance.NewWave();
                 Weapons.instance.NewWave();
+                PlayerController.instance.NewWave();
                 
             }
 
@@ -116,6 +116,7 @@ public class WaveController : MonoBehaviour {
 
                 //Update difficulty
                 spawnCount += _balanceSystem.ModifyEnemySpawnAmount();
+                _balanceSystem.ModifyEnemyValues();
                 
             }
 
