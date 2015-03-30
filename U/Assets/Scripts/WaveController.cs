@@ -26,7 +26,9 @@ public class WaveController : MonoBehaviour {
         }
     }
 
-    public EnemyController enemyPrefab;
+    public EnemyController missilePrefab;
+    public EnemyController laserPrefab;
+    public EnemyController leechPrefab;
     public int spawnCount;
     private int _startingSpawnCount;
     public float spawnDelay;
@@ -86,9 +88,10 @@ public class WaveController : MonoBehaviour {
                 //Spawn the wave
                 for (int i = 0; i < spawnCount; i++)
                 {
-                    EnemyController eC = (EnemyController) Instantiate(enemyPrefab, _transformArray[i].position, Quaternion.identity);
+                    EnemyController eC = (EnemyController) Instantiate(leechPrefab, _transformArray[i].position, Quaternion.identity);
                     TrackEnemy(eC);
                     //eC.SetValues(); //Function not implemented yet
+                    _balanceSystem.SetValues();
                 }
 
                 

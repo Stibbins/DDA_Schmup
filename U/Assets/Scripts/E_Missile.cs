@@ -8,10 +8,8 @@ public class E_Missile : MonoBehaviour {
     [SerializeField]
     private BalanceSystem _balanceSystem;
     
-    [SerializeField]
-    private float _arcSize;
-    [SerializeField]
-    private float _fireRate;
+    public static float _arcSize;
+    public static float _fireRate;
     private float _lastShot;
     private static Transform _playerTransform;
 	

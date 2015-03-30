@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class E_Laser : MonoBehaviour {
 
     public Transform tinyLaser;
@@ -8,8 +9,8 @@ public class E_Laser : MonoBehaviour {
 
 
     private bool _lockRotation;
-    public float _rotationSpeed;
-    public float _attackDelay;
+    public static float _rotationSpeed;
+    public static float _attackDelay;
     private float _attackDamage;
     private Vector2 _playerPosition;
     private float _attackTime;
@@ -20,8 +21,10 @@ public class E_Laser : MonoBehaviour {
     private Transform _bigLaserTransform;
 
 
+
 	void Awake () 
     {
+        
         _lockRotation = false;
         _attackTime = Time.time - 1;
         _tinyLaserTransform = Instantiate(tinyLaser, transform.position, Quaternion.identity) as Transform;

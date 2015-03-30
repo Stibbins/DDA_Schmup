@@ -4,9 +4,9 @@ using System.Collections;
 public class E_Leech : MonoBehaviour {
 
 
-    public float movementSpeed;
+    public static float movementSpeed;
     public float rotationSpeed;
-    public float leechDamage;
+    public static float leechDamage;
     public float leechDamageDelay;
 
     private Movement _playerMovement;

@@ -67,3 +67,15 @@ $RECYCLE.BIN/
 *.suo
 *.htm
 U/UnityVS.U.v12.suo
+U/Assets/Assets.meta
+U/Assets/Assets/Holoville.meta
+U/Assets/Assets/Holoville/HOPath.meta
+U/Assets/Assets/Holoville/HOPath/Editor.meta
+U/Assets/HOTween.meta
+U/Assets/Holoville.meta
+U/Assets/Holoville/HOTween Extensions.meta
+U/Assets/Holoville/HOTween Extensions/HOTweenManager.meta
+U/Assets/Holoville/HOTween Extensions/HOTweenManager/Editor.meta
+U/Assets/Holoville/HOTween Extensions/HOTweenManager/Editor/Core.meta
+U/Assets/Holoville/HOUnityEditor.meta
+U/Assets/Holoville/HOUnityEditor/Editor.meta

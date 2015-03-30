@@ -24,23 +24,20 @@ public class BalanceSystem : MonoBehaviour {
     ///-----STARTING VALUES!
     public float sv_MissileRate;
     public float sv_MissileArc;
+    public float sv_LaserRotation;
+    public float sv_LaserDelay;
+    public float sv_LeechSpeed;
+    public float sv_LeechDamage;
 
+    //----- Not Starting Values
 
-    //------Structs holding values for different enemy types
-    public struct S_MissileValues
-    {
-        public float _missileRate;
-        public float _missileArc;
-        public S_MissileValues (float rate, float arc)
-        {
-            _missileRate = rate;
-            _missileArc = arc;
-        }
-    }
+    private float _MissileRate;
+    private float _MissileArc;
+    private float _LaserRotation;
+    private float _LaserDelay;
+    private float _LeechSpeed;
+    private float _LeechDamage;
 
-    //---- End of structs
-
-    public S_MissileValues _missileValues;
 
     //---- FUZZY IMPLEMENTATION
     
@@ -55,22 +52,16 @@ public class BalanceSystem : MonoBehaviour {
 
 	void Awake () 
     {
-        S_MissileValues _missileValues = new S_MissileValues(sv_MissileRate, sv_MissileArc);
+        _MissileRate = sv_MissileRate;
+        _MissileArc = sv_MissileArc;
+        _LaserRotation = sv_LaserRotation;
+        _LaserDelay = sv_LaserDelay;
+        _LeechSpeed = sv_LeechSpeed;
+        _LeechDamage = sv_LeechDamage;
         _playerMovement = Movement.instance;
+     
 	}
 	
-	
-	void Update () 
-    {
-        
-	}
-
-
-    public S_MissileValues GetMissileValues()
-    {
-        return  _missileValues;
-    }
-
 
     //Part of the difficulty adjustment
     public int ModifyEnemySpawnAmount()
@@ -97,7 +88,14 @@ public class BalanceSystem : MonoBehaviour {
         
     }
 
-
-
+    public void SetValues()
+    {
+        E_Laser._rotationSpeed = _LaserRotation;
+        E_Laser._attackDelay = _LaserDelay;
+        E_Missile._arcSize = _MissileArc;
+        E_Missile._fireRate = _MissileRate;
+        E_Leech.movementSpeed = _LeechSpeed;
+        E_Leech.leechDamage = _LeechDamage;
+    }
 
 }

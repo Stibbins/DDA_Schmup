@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour {
             E_Leech leechClass = other.GetComponent<E_Leech>();
             if (Time.time > leechClass.nextDamageTime)
             {
-                _currentHealth -= leechClass.leechDamage;
+                _currentHealth -= E_Leech.leechDamage;
                 leechClass.SetNewDamageTick();
                 Debug.Log("Current health: " + _currentHealth); 
             }
