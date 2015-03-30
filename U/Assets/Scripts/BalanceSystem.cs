@@ -54,7 +54,6 @@ public class BalanceSystem : MonoBehaviour {
     private float _maxHealth;
     private float _currentHealth;
     private float _previousHealth;
-    private float _valueModifier;
 
 
 	void Awake () 
@@ -112,16 +111,31 @@ public class BalanceSystem : MonoBehaviour {
         {
             if (_healthLoss >= _previousHealth/2)
             {
-                _valueModifier -= 1;
+                _LaserRotation *= 0.8f;
+                _LaserDelay *= 1.4f;
+                _MissileArc *= 1.4f;
+                _MissileRate *= 1.4f;
+                _LeechSpeed *= 0.7f;
+                _LeechDamage *= 0.7f;
             }
 
             if (_healthLoss < _previousHealth/2 && _healthLoss > 0)
             {
-                _valueModifier += 0.5f;
+                _LaserRotation *= 1.2f;
+                _LaserDelay *= 0.9f;
+                _MissileArc *= 0.9f;
+                _MissileRate *= 0.9f;
+                _LeechSpeed *= 1.2f;
+                _LeechDamage *= 1.2f;
             }
             if (_healthLoss <= 0)
             {
-                _valueModifier += 0.75f;
+                _LaserRotation *= 1.5f;
+                _LaserDelay *= 0.7f;
+                _MissileArc *= 0.7f;
+                _MissileRate *= 0.7f;
+                _LeechSpeed *= 1.4f;
+                _LeechDamage *= 1.4f;
             }
         }
 
@@ -130,25 +144,35 @@ public class BalanceSystem : MonoBehaviour {
         {
             if (_healthLoss >= _previousHealth / 2)
             {
-                _valueModifier -= 0.5f;
+                _LaserRotation *= 0.9f;
+                _LaserDelay *= 1.2f;
+                _MissileArc *= 1.2f;
+                _MissileRate *= 1.2f;
+                _LeechSpeed *= 0.8f;
+                _LeechDamage *= 0.8f;
             }
 
             if (_healthLoss < _previousHealth / 2 && _healthLoss > 0)
             {
-                _valueModifier += 1f;
+                _LaserRotation *= 1.5f;
+                _LaserDelay *= 0.7f;
+                _MissileArc *= 0.7f;
+                _MissileRate *= 0.7f;
+                _LeechSpeed *= 1.4f;
+                _LeechDamage *= 1.4f;
             }
             if (_healthLoss <= 0)
             {
-                _valueModifier += 2f;
+                _LaserRotation *= 1.6f;
+                _LaserDelay *= 0.6f;
+                _MissileArc *= 0.8f;
+                _MissileRate *= 0.9f;
+                _LeechSpeed *= 1.5f;
+                _LeechDamage *= 1.5f;
             }
         }
 
-        _LaserRotation += _valueModifier;
-        _LaserDelay -= _valueModifier;
-       // _MissileArc += _valueModifier/10;
-        _MissileRate -= _valueModifier;
-        _LeechSpeed += _valueModifier;
-        _LeechDamage += _valueModifier;
+        
         
 
     }
@@ -162,6 +186,17 @@ public class BalanceSystem : MonoBehaviour {
         E_Leech.movementSpeed = _LeechSpeed;
         E_Leech.leechDamage = _LeechDamage;
         Debug.Log("Enemy Values modified");
+    }
+
+    public void ResetValues()
+    {
+        E_Laser._rotationSpeed = sv_LaserRotation;
+        E_Laser._attackDelay = sv_LaserDelay;
+        E_Missile._arcSize = sv_MissileArc;
+        E_Missile._fireRate = sv_MissileRate;
+        E_Leech.movementSpeed = sv_LeechSpeed;
+        E_Leech.leechDamage = sv_LeechDamage;
+        Debug.Log("Enemy Values reset");
     }
 
 }

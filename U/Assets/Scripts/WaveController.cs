@@ -154,6 +154,7 @@ public class WaveController : MonoBehaviour {
         _waveActive = false;
         _spawnActive = true;
         _spawnTimer = Time.time + spawnDelay;
+        _balanceSystem.ResetValues();
         spawnCount = _startingSpawnCount;
         _currentWave = 0;
     }
