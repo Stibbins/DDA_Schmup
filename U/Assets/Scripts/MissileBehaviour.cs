@@ -10,13 +10,14 @@ public class MissileBehaviour : MonoBehaviour {
     private float _rotationSpeed = 1;
 
     private Vector2 _playerPosition;
+    private Rigidbody2D _rigidbody;
 
 
 
 
 	void Awake () 
     {
-        
+        _rigidbody = GetComponent<Rigidbody2D>();
 	}
 	
 	
@@ -27,9 +28,9 @@ public class MissileBehaviour : MonoBehaviour {
         Vector2 temp = transform.position;
         _rotationDirection = _playerPosition - temp;
         _rotationDirection.Normalize();
-        transform.Translate(-transform.up * _speed * Time.deltaTime);
+        //transform.Translate(-transform.up * _speed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward, _rotationDirection), Time.time * _rotationSpeed);
-
+        _rigidbody.AddForce(_rotationDirection * _speed);
         
 	}
 
