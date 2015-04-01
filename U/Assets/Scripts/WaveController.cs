@@ -33,7 +33,7 @@ public class WaveController : MonoBehaviour {
     private int _startingSpawnCount;
     public float spawnDelay;
 
-    private bool _gameActive;
+    public bool _gameActive;
     private bool _spawnActive;
     private float _spawnTimer;
     public Transform waveSpawn;
@@ -50,11 +50,13 @@ public class WaveController : MonoBehaviour {
     // ---- OTHER
     public int numberOfWaves;
     private BalanceSystem _balanceSystem;
+    private PlayerController _playerController;
 
 
     void Awake ()
     {
         _balanceSystem = BalanceSystem.instance;
+        _playerController = PlayerController.instance;
         _startingSpawnCount = spawnCount;
         SetStartingValues();
         
@@ -72,7 +74,10 @@ public class WaveController : MonoBehaviour {
             _gameActive = false;
         }
 
-        
+        if (_playerController.currentHealth <= 0)
+        {
+            _gameActive = false;
+        }
 
         if (_waveActive && _gameActive)
         {
@@ -160,6 +165,7 @@ public class WaveController : MonoBehaviour {
         _spawnActive = true;
         _spawnTimer = Time.time + spawnDelay;
         _balanceSystem.ResetValues();
+        _playerController.ResetValues();
         spawnCount = _startingSpawnCount;
         _currentWave = 0;
     }

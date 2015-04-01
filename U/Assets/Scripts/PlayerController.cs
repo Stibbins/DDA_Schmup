@@ -77,4 +77,10 @@ public class PlayerController : MonoBehaviour {
     {
         waveHealthDelta = 0;
     }
+
+    public void ResetValues()
+    {
+        waveHealthDelta = 0;
+        currentHealth = playerMaxHealth;
+    }
 }

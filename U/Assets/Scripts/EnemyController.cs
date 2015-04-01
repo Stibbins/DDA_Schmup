@@ -18,6 +18,14 @@ public class EnemyController : MonoBehaviour {
         }
 	}
 	
+    void Update()
+    {
+        if (!_waveController._gameActive)
+        {
+            _waveController.UnTrackEnemy(this);
+            Destroy(gameObject);
+        }
+    }
 
     
     void OnTriggerEnter2D(Collider2D other)
@@ -35,10 +43,7 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    public void SetValues()
-    {
-        //TODO
-    }
+
 
 }
 
