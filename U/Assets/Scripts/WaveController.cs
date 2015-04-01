@@ -38,6 +38,7 @@ public class WaveController : MonoBehaviour {
     private float _spawnTimer;
     public Transform waveSpawn;
     private Transform[] _transformArray;
+    private EnemyController[] _waveArray;
 
 
     //---- WAVE MANAGEMENT
@@ -53,6 +54,7 @@ public class WaveController : MonoBehaviour {
 
     void Awake ()
     {
+        _balanceSystem = BalanceSystem.instance;
         _startingSpawnCount = spawnCount;
         SetStartingValues();
         
@@ -60,7 +62,7 @@ public class WaveController : MonoBehaviour {
 
         _transformArray = waveSpawn.GetComponentsInChildren<Transform>();
         
-        _balanceSystem = BalanceSystem.instance;
+        
     }
 
     void Update()
@@ -77,18 +79,22 @@ public class WaveController : MonoBehaviour {
             
             if (_spawnActive)
             {
-                
+
+                SetSpawns();
+
                 //Make sure the number of spawns does not exceed possible
                 //spawn locations
                 if (_transformArray.Length < spawnCount)
                 {
-                    spawnCount = _transformArray.Length;
+                    Debug.Log("Too many enemies!");
                 }
+
+                
 
                 //Spawn the wave
                 for (int i = 0; i < spawnCount; i++)
                 {
-                    EnemyController eC = (EnemyController) Instantiate(missilePrefab, _transformArray[i].position, Quaternion.identity);
+                    EnemyController eC = (EnemyController) Instantiate(_waveArray[i], _transformArray[i].position, Quaternion.identity);
                     TrackEnemy(eC);
                     
                 }
@@ -115,7 +121,7 @@ public class WaveController : MonoBehaviour {
                 _spawnTimer = Time.time + spawnDelay; //Delay until next wave
 
                 //Update difficulty
-                spawnCount += _balanceSystem.ModifyEnemySpawnAmount();
+                //spawnCount += _balanceSystem.ModifyEnemySpawnAmount();
                 _balanceSystem.ModifyEnemyValues();
                 
             }
@@ -137,7 +143,6 @@ public class WaveController : MonoBehaviour {
         }
     }
 
-
     public void TrackEnemy(EnemyController enemy)
     {
         _enemyList.Add(enemy);
@@ -157,5 +162,72 @@ public class WaveController : MonoBehaviour {
         _balanceSystem.ResetValues();
         spawnCount = _startingSpawnCount;
         _currentWave = 0;
+    }
+
+    private void SetSpawns()
+    {
+        if (_currentWave == 0)
+        {
+            _waveArray = new EnemyController[]
+            {
+                missilePrefab,
+                laserPrefab
+            };
+        }
+
+        if (_currentWave == 1)
+        {
+            _waveArray = new EnemyController[]
+            {
+                leechPrefab,
+                laserPrefab
+            };
+        }
+
+
+        if (_currentWave == 2)
+        {
+            _waveArray = new EnemyController[]
+            {
+                missilePrefab,
+                missilePrefab,
+                laserPrefab
+            };
+        }
+
+        if (_currentWave == 3)
+        {
+            _waveArray = new EnemyController[]
+            {
+                laserPrefab,
+                laserPrefab,
+                laserPrefab,
+                laserPrefab
+            };
+        }
+
+        if (_currentWave == 4)
+        {
+            _waveArray = new EnemyController[]
+            {
+                missilePrefab,
+                missilePrefab,
+                missilePrefab
+            };
+        }
+
+        if (_currentWave == 5)
+        {
+            _waveArray = new EnemyController[]
+            {
+                laserPrefab,
+                missilePrefab,
+                laserPrefab,
+                missilePrefab,
+                leechPrefab,
+                leechPrefab
+            };
+        }
+        spawnCount = _waveArray.Length;
     }
 }

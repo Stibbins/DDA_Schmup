@@ -27,9 +27,10 @@ public class MissileBehaviour : MonoBehaviour {
         Vector2 temp = transform.position;
         _rotationDirection = _playerPosition - temp;
         _rotationDirection.Normalize();
+        transform.Translate(-transform.up * _speed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward, _rotationDirection), Time.time * _rotationSpeed);
 
-        transform.Translate(-transform.up * _speed * Time.deltaTime);
+        
 	}
 
     void OnTriggerEnter2D(Collider2D other)
