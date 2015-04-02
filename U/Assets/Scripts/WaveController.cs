@@ -69,7 +69,7 @@ public class WaveController : MonoBehaviour {
 
     void Update()
     {
-        if (_currentWave >= numberOfWaves)
+        if (_currentWave >= numberOfWaves && _enemyList.Count < 1)
         {
             _gameActive = false;
         }
@@ -234,6 +234,23 @@ public class WaveController : MonoBehaviour {
                 leechPrefab
             };
         }
+
+        if (_currentWave == 6)
+        {
+            _waveArray = new EnemyController[]
+            {
+                laserPrefab,
+                laserPrefab,
+                laserPrefab,
+                leechPrefab,
+                leechPrefab,
+                leechPrefab,
+                leechPrefab
+            };
+        }
+
+
+
         spawnCount = _waveArray.Length;
     }
 }
