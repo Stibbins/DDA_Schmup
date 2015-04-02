@@ -15,6 +15,6 @@ public class UI_Wave : MonoBehaviour {
 
 	void Update () 
     {
-        _textComponent.text = "Current wave: " + _waveController._currentWave;
+        _textComponent.text = "Current wave: " + _waveController._currentWave + " of " + _waveController.numberOfWaves;
 	}
 }

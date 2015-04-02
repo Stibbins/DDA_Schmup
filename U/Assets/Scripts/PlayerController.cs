@@ -22,11 +22,14 @@ public class PlayerController : MonoBehaviour {
     public float currentHealth;
     public float waveHealthDelta;
 
+    private UI_PlayerDamage _damageDisplay;
+
 
 	void Awake () 
     {
         currentHealth = playerMaxHealth;
         waveHealthDelta = 0f;
+        //_damageDisplay = UI_PlayerDamage.instance;
 	}
 
     void OnTriggerEnter2D (Collider2D other)
@@ -37,7 +40,7 @@ public class PlayerController : MonoBehaviour {
             currentHealth -= damageClass.damageAmount;
             waveHealthDelta += damageClass.damageAmount;
             Destroy(other.gameObject);
-            Debug.Log("Current health: " + currentHealth);
+            //_damageDisplay.UpdateText(damageClass.damageAmount);
         }
 
         
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour {
                 currentHealth -= damageClass.damageAmount;
                 waveHealthDelta += damageClass.damageAmount;
                 laserClass.SetNewDamageTick();
-                Debug.Log("Current health: " + currentHealth);
+                //_damageDisplay.UpdateText(damageClass.damageAmount);
             }
 
         }
@@ -67,7 +70,7 @@ public class PlayerController : MonoBehaviour {
                 currentHealth -= E_Leech.leechDamage;
                 waveHealthDelta = +E_Leech.leechDamage;
                 leechClass.SetNewDamageTick();
-                Debug.Log("Current health: " + currentHealth); 
+                //_damageDisplay.UpdateText(E_Leech.leechDamage); 
             }
                        
         }
