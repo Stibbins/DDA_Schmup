@@ -21,7 +21,7 @@ public class UI_WaveCountdown : MonoBehaviour {
 
         if (!_waveController._waveActive)
         {
-            string temp = (_waveController._spawnTimer - Time.time).ToString();
+            string temp = Mathf.Round(_waveController._spawnTimer - Time.time).ToString();
             _text.text = "Next wave in " + temp + "s";
         }
 
