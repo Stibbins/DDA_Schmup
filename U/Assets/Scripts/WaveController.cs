@@ -35,7 +35,7 @@ public class WaveController : MonoBehaviour {
 
     public bool _gameActive;
     private bool _spawnActive;
-    private float _spawnTimer;
+    public float _spawnTimer;
     public Transform waveSpawn;
     private Transform[] _transformArray;
     private EnemyController[] _waveArray;
