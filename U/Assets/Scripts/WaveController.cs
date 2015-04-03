@@ -87,15 +87,7 @@ public class WaveController : MonoBehaviour {
 
                 SetSpawns();
 
-                //Make sure the number of spawns does not exceed possible
-                //spawn locations
-                if (_transformArray.Length < spawnCount)
-                {
-                    Debug.Log("Too many enemies!");
-                }
-
-                
-
+         
                 //Spawn the wave
                 for (int i = 0; i < spawnCount; i++)
                 {
