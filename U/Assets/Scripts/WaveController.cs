@@ -256,6 +256,23 @@ public class WaveController : MonoBehaviour {
             };
         }
 
+        if (_currentWave == 8)
+        {
+            _waveArray = new EnemyController[]
+            {
+                leechPrefab,
+                leechPrefab,
+                leechPrefab,
+                leechPrefab,
+                laserPrefab,
+                laserPrefab,
+                laserPrefab,
+                laserPrefab,
+                leechPrefab,
+                leechPrefab
+            };
+        }
+
 
 
         spawnCount = _waveArray.Length;
