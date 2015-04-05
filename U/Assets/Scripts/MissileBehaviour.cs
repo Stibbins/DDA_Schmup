@@ -6,8 +6,8 @@ public class MissileBehaviour : MonoBehaviour {
     public float health;
 
 
-    private float _speed = 2;
-    private float _rotationSpeed = 1;
+    private float _speed = 3;
+    private float _rotationSpeed = 2;
 
     private Vector2 _playerPosition;
     private Rigidbody2D _rigidbody;

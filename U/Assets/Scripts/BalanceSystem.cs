@@ -116,7 +116,7 @@ public class BalanceSystem : MonoBehaviour {
                 _MissileArc *= 1.4f;
                 _MissileRate *= 1.4f;
                 _LeechSpeed *= 0.85f;
-                _LeechDamage *= 0.85f;
+                _LeechDamage *= 0.8f;
             }
 
             if (_healthLoss < _previousHealth/2 && _healthLoss > 0)
@@ -134,8 +134,8 @@ public class BalanceSystem : MonoBehaviour {
                 _LaserDelay *= 0.9f;
                 _MissileArc *= 0.85f;
                 _MissileRate *= 0.95f;
-                _LeechSpeed *= 1.1f;
-                _LeechDamage *= 1.35f;
+                _LeechSpeed *= 1.05f;
+                _LeechDamage *= 1.2f;
             }
         }
 
@@ -158,17 +158,17 @@ public class BalanceSystem : MonoBehaviour {
                 _LaserDelay *= 0.85f;
                 _MissileArc *= 0.95f;
                 _MissileRate *= 0.95f;
-                _LeechSpeed *= 1.15f;
-                _LeechDamage *= 1.4f;
+                _LeechSpeed *= 1.05f;
+                _LeechDamage *= 1.2f;
             }
             if (_healthLoss <= 0)
             {
                 _LaserRotation *= 1.2f;
-                _LaserDelay *= 0.8f;
+                _LaserDelay *= 0.85f;
                 _MissileArc *= 0.9f;
                 _MissileRate *= 0.9f;
-                _LeechSpeed *= 1.2f;
-                _LeechDamage *= 1.5f;
+                _LeechSpeed *= 1.1f;
+                _LeechDamage *= 1.3f;
             }
         }
 

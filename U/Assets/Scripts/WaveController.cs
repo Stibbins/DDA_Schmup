@@ -210,7 +210,10 @@ public class WaveController : MonoBehaviour {
             {
                 missilePrefab,
                 missilePrefab,
-                missilePrefab
+                missilePrefab,
+                missilePrefab,
+                laserPrefab,
+                laserPrefab
             };
         }
 
@@ -233,8 +236,6 @@ public class WaveController : MonoBehaviour {
             {
                 laserPrefab,
                 laserPrefab,
-                laserPrefab,
-                leechPrefab,
                 leechPrefab,
                 leechPrefab,
                 leechPrefab
@@ -260,8 +261,8 @@ public class WaveController : MonoBehaviour {
         {
             _waveArray = new EnemyController[]
             {
-                leechPrefab,
-                leechPrefab,
+                missilePrefab,
+                missilePrefab,
                 leechPrefab,
                 leechPrefab,
                 laserPrefab,
