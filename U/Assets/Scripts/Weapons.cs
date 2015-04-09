@@ -36,7 +36,7 @@ public class Weapons : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-	    if (Input.GetKey(keyFire) && Time.time > lastFire + fireRate)
+	    if ((Input.GetKey(keyFire) || Input.GetKey(KeyCode.LeftControl)) && Time.time > lastFire + fireRate)
         {
             lastFire = Time.time;
             Instantiate(bulletPrefab, cannonTransform.position, Quaternion.identity);

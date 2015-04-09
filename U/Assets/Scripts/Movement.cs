@@ -74,13 +74,13 @@ public class Movement : MonoBehaviour {
                
         // -- Get input
         Vector3 acceleration = Vector3.zero;
-        if (Input.GetKey(keyUp))
+        if (Input.GetKey(keyUp) || Input.GetKey(KeyCode.UpArrow))
             acceleration += _transform.up;
-        if (Input.GetKey(keyDown))
+        if (Input.GetKey(keyDown) || Input.GetKey(KeyCode.DownArrow))
             acceleration -= _transform.up;
-        if (Input.GetKey(keyRight))
+        if (Input.GetKey(keyRight) || Input.GetKey(KeyCode.RightArrow))
             acceleration += _transform.right;
-        if (Input.GetKey(keyLeft))
+        if (Input.GetKey(keyLeft) || Input.GetKey(KeyCode.LeftArrow))
             acceleration -= _transform.right;
 
         acceleration.z = 0;
