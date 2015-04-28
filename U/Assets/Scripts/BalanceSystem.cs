@@ -177,6 +177,16 @@ public class BalanceSystem : MonoBehaviour {
 
     }
 
+    public void PlayerDeathMod()
+    {
+        _LaserRotation *= 0.5f;
+        _LaserDelay *= 1.5f;
+        _MissileArc *= 1.2f;
+        _MissileRate *= 1.4f;
+        _LeechSpeed *= 0.7f;
+        _LeechDamage *= 0.7f;
+    }
+
     public void SetValues()
     {
         E_Laser._rotationSpeed = _LaserRotation;

@@ -12,12 +12,16 @@ public class MissileBehaviour : MonoBehaviour {
     private Vector2 _playerPosition;
     private Rigidbody2D _rigidbody;
 
+    private WaveController _waveController;
+
+
 
 
 
 	void Awake () 
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _waveController = WaveController.instance;
 	}
 	
 	
@@ -31,7 +35,10 @@ public class MissileBehaviour : MonoBehaviour {
         //transform.Translate(-transform.up * _speed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward, _rotationDirection), Time.time * _rotationSpeed);
         _rigidbody.AddForce(_rotationDirection * _speed);
-        
+        if (_waveController._waveActive == false || _waveController._gameActive == false)
+        {
+            Destroy(gameObject);
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -48,4 +55,5 @@ public class MissileBehaviour : MonoBehaviour {
         }
     }
 
+    
 }

@@ -74,9 +74,10 @@ public class WaveController : MonoBehaviour {
             _gameActive = false;
         }
 
-        if (_playerController.currentHealth <= 0)
+        if (_playerController.currentHealth <= 0 && _gameActive == true)
         {
             _gameActive = false;
+            _balanceSystem.PlayerDeathMod();
         }
 
         if (_waveActive && _gameActive)
@@ -156,7 +157,6 @@ public class WaveController : MonoBehaviour {
         _waveActive = false;
         _spawnActive = true;
         _spawnTimer = Time.time + spawnDelay;
-        _balanceSystem.ResetValues();
         _playerController.ResetValues();
         spawnCount = _startingSpawnCount;
         _currentWave = 0;
