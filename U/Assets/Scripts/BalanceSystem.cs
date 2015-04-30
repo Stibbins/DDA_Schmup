@@ -198,15 +198,6 @@ public class BalanceSystem : MonoBehaviour {
         Debug.Log("Enemy Values modified");
     }
 
-    public void ResetValues()
-    {
-        E_Laser._rotationSpeed = sv_LaserRotation;
-        E_Laser._attackDelay = sv_LaserDelay;
-        E_Missile._arcSize = sv_MissileArc;
-        E_Missile._fireRate = sv_MissileRate;
-        E_Leech.movementSpeed = sv_LeechSpeed;
-        E_Leech.leechDamage = sv_LeechDamage;
-        Debug.Log("Enemy Values reset");
-    }
+ 
 
 }
